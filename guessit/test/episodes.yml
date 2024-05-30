@@ -4770,3 +4770,10 @@
   video_codec: H.264
   release_group: NOGRP
   type: episode
+
+? video/zettai karen children/01 - Absolutely Lovely! Their Name Is The Children.mkv
+: title: "zettai karen children"
+  episode: 1
+  episode_title: "Absolutely Lovely! Their Name Is The Children"
+  container: mkv
+  type: episode
