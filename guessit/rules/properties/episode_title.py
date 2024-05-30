@@ -4,6 +4,7 @@
 Episode title
 """
 from collections import defaultdict
+from copy import copy
 
 from rebulk import Rebulk, Rule, AppendMatch, RemoveMatch, RenameMatch, POST_PROCESS
 
@@ -34,7 +35,8 @@ def episode_title(config):  # pylint:disable=unused-argument
                           TitleToEpisodeTitle,
                           Filepart3EpisodeTitle,
                           Filepart2EpisodeTitle,
-                          RenameEpisodeTitleWhenMovieType)
+                          RenameEpisodeTitleWhenMovieType,
+                          EpisodeTitlePromotion)
     return rebulk
 
 
@@ -298,3 +300,33 @@ class Filepart2EpisodeTitle(Rule):
                 if hole:
                     hole.tags.append('filepart-title')
                     return hole
+
+class EpisodeTitlePromotion(Rule):
+    """
+    Promote "episode_title" to "episode" when the title is in fact the episode number
+
+    See https://github.com/guessit-io/guessit/issues/667
+    """
+
+    priority = POST_PROCESS
+    consequence = [RemoveMatch, AppendMatch]
+
+    def when(self, matches, context):
+        ep_title = matches.named("episode_title")
+        if not ep_title:
+            return
+
+        # Do not promote an episode title if there is already a know episode number
+        ep_nbr = matches.named("episode")
+        if ep_nbr:
+            return
+
+        to_remove = [match for match in ep_title if str(match.value).isdecimal()]
+        to_add = []
+        for tmatch in to_remove:
+            match = copy(tmatch)
+            match.name = "episode"
+            match.value = int(str(tmatch.value))
+            to_add.append(match)
+            return [to_remove, to_add]
+
