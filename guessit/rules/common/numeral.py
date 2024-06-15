@@ -36,7 +36,7 @@ def __build_word_numeral(*args):
     :return:
     :rtype:
     """
-    re_ = None
+    re_ = ''
     for word_list in args:
         for word in word_list:
             if not re_:
