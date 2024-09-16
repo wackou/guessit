@@ -134,7 +134,7 @@ class EpisodeTitleFromPosition(TitleBaseRule):
 
     def hole_filter(self, hole, matches):
         episode = matches.previous(hole,
-                                   lambda previous: previous.named(*self.previous_names),
+                                   lambda previous: previous.named(*self.previous_names) or previous.tagged('repack'),
                                    0)
 
         crc32 = matches.named('crc32')

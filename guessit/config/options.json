@@ -447,7 +447,7 @@
         "Dual Audio": {"string": ["Dual"], "regex": ["Dual-?Audio"]},
         "Widescreen": {"string": ["ws"], "regex": ["wide-?screen"]},
         "Reencoded": {"regex": ["Re-?Enc(?:oded)?"]},
-        "_repack_with_count": {"regex": ["Repack(?P<proper_count>\\d*)", "Rerip(?P<proper_count>\\d*)"], "value": {"other": "Proper"}, "tags": ["streaming_service.prefix", "streaming_service.suffix"]},
+        "_repack_with_count": {"regex": ["Repack(?P<proper_count>\\d*)", "Rerip(?P<proper_count>\\d*)"], "value": {"other": "Proper"}, "tags": ["streaming_service.prefix", "streaming_service.suffix", "repack"]},
         "Proper": [
           {"string": "Proper", "tags": ["has-neighbor", "streaming_service.prefix", "streaming_service.suffix"]},
           {"regex": ["Real-Proper", "Real-Repack", "Real-Rerip"], "tags": ["streaming_service.prefix", "streaming_service.suffix", "real"]},
