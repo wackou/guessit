@@ -341,3 +341,12 @@
   season: 32
   week: 45
   episode: 6478
+
+? Some.Series.S00E01.Some.Episode.Title.1080p.WEBRip.x265.AAC.2.0-SOMEGROUP.mkv
+: title: Some Series
+  episode_title: Some Episode Title
+
+? Some.Series.S00E01.REPACK.Some.Episode.Title.1080p.WEBRip.x265.AAC.2.0-SOMEGROUP.mkv
+: title: Some Series
+  episode_title: Some Episode Title
+  proper_count: 1
