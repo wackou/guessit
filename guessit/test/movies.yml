@@ -1630,6 +1630,21 @@
   release_group: MANTESH
   type: movie
 
+? Some.Title.1983.LDRip.x264
+: title: Some Title
+  year: 1983
+  source: LD
+  other: Rip
+  video_codec: H.264
+  type: movie
+
+? Some.Title.1983.Laserdisc.x264
+: title: Some Title
+  year: 1983
+  source: LD
+  video_codec: H.264
+  type: movie
+
 ? Family.Katta.2016.1080p.WEB-DL.H263.DD5.1.ESub-DDR
 : title: Family Katta
   year: 2016

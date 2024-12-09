@@ -75,6 +75,12 @@ def source(config):  # pylint:disable=unused-argument
     rebulk.regex(*build_source_pattern('VIDEO-?TS', 'DVD-?R(?:$|(?!E))',  # 'DVD-?R(?:$|^E)' => DVD-Real ...
                                        'DVD-?9', 'DVD-?5'), value='DVD')
 
+    # LD also means "Line Dubbed", so we only interpret this as Laserdisc with a Rip suffix.
+    rebulk.regex(*build_source_pattern('LD', suffix=rip_suffix),
+                 value={'source': 'LD', 'other': 'Rip'})
+    rebulk.regex(*build_source_pattern('laserdisc', suffix=optional(rip_suffix)),
+                 value={'source': 'LD', 'other': 'Rip'})
+
     rebulk.regex(*build_source_pattern('HD-?TV', suffix=optional(rip_suffix)), conflict_solver=demote_other,
                  value={'source': 'HDTV', 'other': 'Rip'})
     rebulk.regex(*build_source_pattern('TV-?HD', suffix=rip_suffix), conflict_solver=demote_other,
