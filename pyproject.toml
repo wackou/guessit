@@ -1,0 +1,8 @@
+[tool.semantic_release]
+version_variables = ["guessit/__version__.py:__version__"]
+commit_message = "chore(release): release v{version}"
+commit_author = "github-actions <actions@github.com>"
+build_command = ""
+
+[tool.check-manifest]
+ignore = ["docs", "docs/*", ".dockerignore", "Dockerfile", "docker", "docker/*"]

@@ -102,7 +102,9 @@ jobs:
           git config --global user.name "github-actions"
 
       - name: Bump version
-        run: semantic-release version
+        run: semantic-release version --no-commit --no-tag --no-push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: python setup.py sdist bdist_wheel
@@ -139,7 +141,9 @@ jobs:
           git config --global user.name "github-actions"
 
       - name: Bump version
-        run: semantic-release version
+        run: semantic-release version --no-commit --no-tag --no-push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Binary
         run: pyinstaller --dist ./dist guessit.spec
@@ -180,7 +184,9 @@ jobs:
           git config --global user.name "github-actions"
 
       - name: Bump version
-        run: semantic-release version -v DEBUG
+        run: semantic-release version --no-commit --no-tag --no-push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Binary
         run: pyinstaller --dist ./dist guessit.spec
@@ -220,7 +226,9 @@ jobs:
           git config --global user.name "github-actions"
 
       - name: Bump version
-        run: semantic-release version -v DEBUG
+        run: semantic-release version --no-commit --no-tag --no-push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Binary
         run: pyinstaller --dist ./dist guessit.spec
@@ -267,14 +275,23 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "github-actions"
 
-      - name: Install python-semantic-release
-        run: pip install python-semantic-release
+      - name: Install python-semantic-release twine
+        run: pip install python-semantic-release twine
 
-      - name: Publish release
-        run: semantic-release publish -v DEBUG
+      - name: Bump version
+        run: semantic-release version
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload to pypi
+        run: twine upload --username "__token__" --password "${PYPI_TOKEN}" dist/*.tar.gz dist/*.whl
+        env:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+
+      - name: Publish release
+        run: semantic-release publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Merge master to develop
         uses: robotology/gh-action-nightly-merge@v1.4.0
